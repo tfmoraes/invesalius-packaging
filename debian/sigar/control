@@ -1,0 +1,138 @@
+Source: sigar
+Priority: extra
+Maintainer: Thiago Franco de Moraes <tfmoraes@cti.gov.br>
+Build-Depends: debhelper (>= 7.0.50~), cmake, python-all-dev, quilt, ruby-dev, rake, nant
+Build-Depends-Indep: cli-common-dev (>= 0.5.7)
+Standards-Version: 3.8.4
+Section: libs
+Homepage: http://support.hyperic.com/display/SIGAR/Home
+
+Package: libsigar
+Section: lib
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: portable interface for gathering system information
+ The Sigar API provides a portable interface for gathering system information
+ such as:
+ .
+  * System memory, swap, cpu, load average, uptime, logins
+  * Per-process memory, cpu, credential info, state, arguments, environment,
+    open files
+  * File system detection and metrics
+  * Network interface detection, configuration info and metrics
+  * TCP and UDP connection tables
+  * Network route table
+ .
+ This package provides the C library.
+
+Package: libsigar-dev
+Section: libdevel
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: portable interface for gathering system information
+ The Sigar API provides a portable interface for gathering system information
+ such as:
+ .
+  * System memory, swap, cpu, load average, uptime, logins
+  * Per-process memory, cpu, credential info, state, arguments, environment,
+    open files
+  * File system detection and metrics
+  * Network interface detection, configuration info and metrics
+  * TCP and UDP connection tables
+  * Network route table
+ .
+ This package provides the C headers.
+
+
+Package: python-sigar
+Section: python
+Architecture: any
+Depends: ${shlibs:Depends}, ${python:Depends}, ${misc:Depends}
+XB-Python-Version: ${python:Versions}
+Description: portable interface for gathering system information
+ The Sigar API provides a portable interface for gathering system information
+ such as:
+ .
+  * System memory, swap, cpu, load average, uptime, logins
+  * Per-process memory, cpu, credential info, state, arguments, environment,
+    open files
+  * File system detection and metrics
+  * Network interface detection, configuration info and metrics
+  * TCP and UDP connection tables
+  * Network route table
+ .
+ This package provides the Python bindings.
+
+
+Package: libsigar-ruby
+Section: ruby
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: portable interface for gathering system information
+ The Sigar API provides a portable interface for gathering system information
+ such as:
+ .
+  * System memory, swap, cpu, load average, uptime, logins
+  * Per-process memory, cpu, credential info, state, arguments, environment,
+    open files
+  * File system detection and metrics
+  * Network interface detection, configuration info and metrics
+  * TCP and UDP connection tables
+  * Network route table
+ .
+ This package provides the Ruby bindings.
+
+Package: libsigar-perl
+Section: perl
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}
+Description: portable interface for gathering system information
+ The Sigar API provides a portable interface for gathering system information
+ such as:
+ .
+  * System memory, swap, cpu, load average, uptime, logins
+  * Per-process memory, cpu, credential info, state, arguments, environment,
+    open files
+  * File system detection and metrics
+  * Network interface detection, configuration info and metrics
+  * TCP and UDP connection tables
+  * Network route table
+ .
+ This package provides the Perl bindings.
+
+
+Package: libsigar-cil
+Section: cli-mono
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}
+Description: portable interface for gathering system information
+ The Sigar API provides a portable interface for gathering system information
+ such as:
+ .
+  * System memory, swap, cpu, load average, uptime, logins
+  * Per-process memory, cpu, credential info, state, arguments, environment,
+    open files
+  * File system detection and metrics
+  * Network interface detection, configuration info and metrics
+  * TCP and UDP connection tables
+  * Network route table
+ .
+ This package provides the Perl bindings.
+
+Package: libsigar-java
+Section: java
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}
+Description: portable interface for gathering system information
+ The Sigar API provides a portable interface for gathering system information
+ such as:
+ .
+  * System memory, swap, cpu, load average, uptime, logins
+  * Per-process memory, cpu, credential info, state, arguments, environment,
+    open files
+  * File system detection and metrics
+  * Network interface detection, configuration info and metrics
+  * TCP and UDP connection tables
+  * Network route table
+ .
+ This package provides the Java bindings.

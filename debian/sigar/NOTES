@@ -1,0 +1,3 @@
+For now the C library is only built as a static library. Whenever the next
+version is actually released the package should be modified to build a properly
+versioned shared library in addition and all binding should lik against it.

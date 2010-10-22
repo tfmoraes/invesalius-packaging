@@ -1,0 +1,2 @@
+?package(invesalius):needs="X11|text|vc|wm" section="Applications/medical"\
+  title="invesalius" command="/usr/bin/invesalius"

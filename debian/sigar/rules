@@ -1,0 +1,81 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+include /usr/share/cli-common/cli.make
+
+PACKAGE = libsigar
+
+DEB_RUBY_SETUP_CMD = extconf.rb
+
+DEB_RUBY_VERSION = 1.8
+DEB_RUBY_LIBDIR=$(strip $(shell ruby$(DEB_RUBY_VERSION) -rrbconfig -e 'puts Config::CONFIG["rubylibdir"]'))
+DEB_RUBY_ARCHDIR=$(strip $(shell ruby$(DEB_RUBY_VERSION) -rrbconfig -e 'puts Config::CONFIG["archdir"]'))
+
+ruby_pkgdir = $(CURDIR)/debian/libsigar-ruby
+ruby_libdir_ver = $(ruby_pkgdir)$(DEB_RUBY_LIBDIR)
+ruby_archdir_ver = $(ruby_pkgdir)$(DEB_RUBY_ARCHDIR)
+DEB_RUBY_INSTALL_ARGS = DESTDIR=$(ruby_pkgdir) \
+		        sitelibdir=$(ruby_libdir_ver) \
+		        sitearchdir=$(ruby_archdir_ver)
+
+PERL_PKG_NAME = libsigar-perl
+
+# show me all
+export CFLAGS = -Wall -fPIC
+
+
+# one ring to rule them all ...
+%:
+	dh --with quilt $@ --with javahelper
+
+override_dh_auto_configure:
+# tweak the library build setup
+	dh_auto_configure
+	cd bindings/ruby/ && 	/usr/bin/ruby$(DEB_RUBY_VERSION) $(DEB_RUBY_SETUP_RUBY_ARGS) \
+		extconf.rb $(DEB_RUBY_SETUP_ARGS)
+
+override_dh_auto_build:
+# first do whatever needs to be done anyway
+	dh_auto_build
+	
+# now take care of the bindings
+# Python (for all supported versions)
+	for buildver in $(shell pyversions -vr); do \
+		cd $(CURDIR)/bindings/python && python$${buildver} setup.py build; \
+	done
+
+# Building ruby bindings
+	cd bindings/ruby/ && $(MAKE)
+
+# Building Perl bindings
+# The PERL_MM_OPT is used to make install the perl file in the right directory
+	cd bindings/perl/ && PERL_MM_OPT='INSTALLDIRS=vendor' perl Makefile.PL && $(MAKE)
+
+# Building Cli bindings
+	cd bindings/dotnet/ && nant
+	#
+# Building Java bindings
+	cd bindings/java/ && ant
+
+override_dh_auto_install:
+# first do whatever needs to be done anyway
+	dh_auto_install
+# now take care of the bindings
+# Python (for all supported versions)
+	for buildver in $(shell pyversions -vr); do \
+		cd $(CURDIR)/bindings/python && python$${buildver} setup.py install \
+			--install-layout=deb --root=$(CURDIR)/debian/python-sigar; \
+	done
+
+# Installing ruby bindings
+	cd bindings/ruby/ && $(MAKE) install -- $(DEB_RUBY_INSTALL_ARGS)
+
+# Installing Perl bindings
+	cd bindings/perl/ && $(MAKE) install PREFIX=$(CURDIR)/debian/$(PERL_PKG_NAME)/usr
+
+
+override_dh_clean:
+	cd $(CURDIR)/bindings/python && python setup.py clean
+	-rm -rf $(CURDIR)/bindings/python/build
+	dh_clean
+

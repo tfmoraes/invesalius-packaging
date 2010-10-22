@@ -1,0 +1,5 @@
+sigar (1.7.0~git20100907-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Thiago Franco de Moraes <tfmoraes@cti.gov.br>  Wed, 15 Sep 2010 09:00:46 -0300

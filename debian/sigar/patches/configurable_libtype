@@ -1,0 +1,13 @@
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -77,7 +77,9 @@
+   sigar_util.c
+ )
+ 
+-ADD_LIBRARY(sigar SHARED ${SIGAR_SRC})
++# Allow library type to be set from outside
++# ADD_LIBRARY(sigar SHARED ${SIGAR_SRC})
++ADD_LIBRARY(sigar ${SIGAR_SRC})
+ IF(WIN32)
+ 	TARGET_LINK_LIBRARIES(sigar ws2_32 netapi32 version)
+ ENDIF(WIN32)

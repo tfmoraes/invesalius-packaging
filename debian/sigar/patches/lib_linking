@@ -1,0 +1,19 @@
+--- a/bindings/python/setup.py
++++ b/bindings/python/setup.py
+@@ -43,10 +43,14 @@
+     _sigar = Extension(
+         "_sigar",
+         ["_sigar.c"],
+-        include_dirs = [sigar + '/include', build],
++        # want to build against the location where debhelper puts it
++        # include_dirs = [sigar + '/include', build],
++        include_dirs = [path.join('..', '..', 'include'), build],
+         extra_compile_args = ['-Wall'],
+         libraries=['sigar'],
+-        library_dirs=[sigar + '/lib'])
++        # want to build against the location where debhelper puts it
++        #library_dirs=[sigar + '/lib'])
++        library_dirs=[sigar])
+ else :
+     print "Inlining libsigar sources"
+     src = sargs('inline_src -- ' + build)
